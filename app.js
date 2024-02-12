@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const sql = require('mssql');
 
@@ -45,7 +46,7 @@ app.get('/', async (req, res) => {
     res.send(`<html><body>${staticContent}<br>${JSON.stringify(result.recordset)}</body></html>`);
   } catch (err) {
     console.error('Error:', err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(`Internal Server Error: ${err}`);
   } finally {
     // Close the database connection
     await sql.close();
