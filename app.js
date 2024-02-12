@@ -22,20 +22,24 @@ const dbConfig = {
 
 app.get('/', async (req, res) => {
   try {
+    console('does azure storage work? starting...');
     // Fetch static content from Azure Storage
     const containerName = 'webfiles';
     const blobName = 'index.html';
     const containerClient = BlobServiceClient.fromConnectionString(storageConnectionString).getContainerClient(containerName);
+    console('does azure storage work?...1');
     const blobClient = containerClient.getBlobClient(blobName);
+    console('does azure storage work?...2');
     const contentBuffer = await blobClient.downloadToBuffer();
+    console('does azure storage work?...3');
     const staticContent = contentBuffer.toString('utf-8');
-    console.error('does azure storage work?');
+    console('does azure storage work?...4');
 
     // Connect to Azure SQL Database
     const pool = await sql.connect(dbConfig);
-    console.error('does azure sql work 1');
+    console('does azure sql work 1');
     const result = await pool.request().query('SELECT * FROM UserInfo');
-    console.error('does azure sql work 2');
+    console('does azure sql work 2');
 
     // Use static content and database result in your response
     res.send(`<html><body>${staticContent}<br>${JSON.stringify(result.recordset)}</body></html>`);
