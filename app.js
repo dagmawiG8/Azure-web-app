@@ -13,7 +13,7 @@ const storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=weba
 const dbConfig = {
   user: 'azureuser',
   password: 'Pa$$w0rd1234',
-  server: 'sqlsrver',
+  server: 'sqlsrver.database.windows.net',
   database: 'mydatabase',
   options: {
     encrypt: true,
